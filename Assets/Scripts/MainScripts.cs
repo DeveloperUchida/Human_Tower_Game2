@@ -54,7 +54,7 @@ public class MainScripts : MonoBehaviour
             else
                 isGameStarTed = true;
         }
-        else if (Input.GetMouseButton(0) && isGene && !isButonHover)
+        else if (Input.GetMouseButton(0) && isGene)
         {
             //マウスの左ボタンが押されている間、キャラクターを移動させる(x座標のみ)
             float mousePositionX = Camera.main.ScreenToWorldPoint(Input.mousePosition).x;
