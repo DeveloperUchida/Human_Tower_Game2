@@ -11,12 +11,13 @@ public class MainScripts : MonoBehaviour
     bool isButtonReleasedOnBUtton = false;
     public static bool isGameOver = false;
     int score;
-    public Text scoreText; //スコア表示用
+    //public Text scoreText; //スコア表示用
     bool isGameStarTed = false; //ゲーム開始状態を管理
 
     [SerializeField] AudioClip fall_se;
     [SerializeField] AudioClip rotate_se;
     AudioSource audioSource;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -31,7 +32,7 @@ public class MainScripts : MonoBehaviour
         score = 0; //スコア情報初期値
 
         isGameStarTed = false; //ゲームが始まったかのフラグ
-        scoreText.text = score.ToString();//スコアテキストの初期化
+        //scoreText.text = score.ToString();//スコアテキストの初期化
     }
 
     // Update is called once per frame
@@ -49,7 +50,6 @@ public class MainScripts : MonoBehaviour
             CreateCaractor(); //キャラクターを生成
             isGene = true;
             if (isGameStarTed)
-
                 UpdateScore();
             else
                 isGameStarTed = true;
@@ -60,8 +60,31 @@ public class MainScripts : MonoBehaviour
             float mousePositionX = Camera.main.ScreenToWorldPoint(Input.mousePosition).x;
             geneChara.transform.position = new Vector2(mousePositionX, transform.position.y);
         }
-
+        else if (Input.GetMouseButtonUp(0) && isGene)
+        {
+            //マウスボタンを離したときにキャラクターを落下させる
+            DropCharacter();
+        }
     }
+
+    void DropCharacter()
+    {
+        if (geneChara != null && isGene)
+        {
+            //物理挙動を有効にする
+            geneChara.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Dynamic;
+
+            //落下音を再生
+            audioSource.PlayOneShot(fall_se);
+
+            //キャラクター生成フラグをリセット
+            isGene = false;
+
+            //間隔制御コルーチンを開始
+            StartCoroutine(IntervalCoroutine());
+        }
+    }
+
     public void RotateCharacter()
     {
         if (isGene)
@@ -70,14 +93,13 @@ public class MainScripts : MonoBehaviour
             audioSource.PlayOneShot(rotate_se); //回転音を再生
             isButonHover = true; //ボタンから指を離した直後のフラグを立てる
         }
+    }
 
-    }   //マウスカーソルがボタンの上にあるかの状態を更新する
+    //マウスカーソルがボタンの上にあるかの状態を更新する
     public void IsButtonChange(bool isX)
     {
         isButonHover = isX; //ボタンの状態を変更
     }
-
-
 
     void CreateCaractor()
     {
@@ -110,11 +132,10 @@ public class MainScripts : MonoBehaviour
         return false; //キャラクターが動いていない場合はfalse
     }
 
-
     void UpdateScore()
     {
         score++; //スコアを加算
-        scoreText.text = score.ToString(); //スコア情報を更新
+        //scoreText.text = score.ToString(); //スコア情報を更新
         Debug.Log("現在のスコア" + score + "です");
     }
 }
