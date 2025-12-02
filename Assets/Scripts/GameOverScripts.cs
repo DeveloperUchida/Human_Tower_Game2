@@ -2,15 +2,22 @@ using UnityEngine;
 
 public class GameOverScripts : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    [SerializeField] GameObject resultPanel;
+
+    void OnTriggerExit2D(Collider2D collision)
     {
-        
+        if(collision.CompareTag("Caractor") && !MainScripts.isGameOver)
+        {
+            GammeOver();
+            collision.gameObject.SetActive(false);
+            Destroy(collision.gameObject, 0.1f); // 少し遅延させて削除
+        }
     }
 
-    // Update is called once per frame
-    void Update()
+    void GammeOver()
     {
-        
+        //ゲームオーバー処理
+        MainScripts.isGameOver = true;
+        resultPanel.SetActive (true);
     }
 }
