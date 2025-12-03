@@ -6,7 +6,7 @@ public class GameOverScripts : MonoBehaviour
 
     void OnTriggerExit2D(Collider2D collision)
     {
-        if(collision.CompareTag("Caractor") && !MainScripts.isGameOver)
+        if(collision.CompareTag("Charactor") && !MainScripts.isGameOver)
         {
             GammeOver();
             collision.gameObject.SetActive(false);

@@ -120,7 +120,7 @@ public class MainScripts : MonoBehaviour
     bool CheckMove()
     {
         //Characterタグのオブジェクトを取得
-        GameObject[] characterObjects = GameObject.FindGameObjectsWithTag("Caractor");
+        GameObject[] characterObjects = GameObject.FindGameObjectsWithTag("Charactor");
         foreach (GameObject character in characterObjects)
         {
             //キャラクターの速度が0.001以上なら動いていると判断
