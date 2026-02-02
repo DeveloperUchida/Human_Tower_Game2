@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class SafeArea : MonoBehaviour
 {
@@ -19,5 +20,16 @@ public class SafeArea : MonoBehaviour
         //ゲームオーバー処理
         ResultPanel.SetActive(true); //パネル表示を出現へ
         MainScripts.isGameOver = true; //ゲームオーバーフラグをオンに
+
+        //GameOverのパネルを表示した時に、Characterタグを持っているGameObjectを削除
+        DestroyAllCharactars();
+    }
+    public void ResltLogic()
+    {
+        SceneManager.LoadScene("SampleScene");
+    }
+    void DestroyAllCharactars()
+    {
+        
     }
 }
